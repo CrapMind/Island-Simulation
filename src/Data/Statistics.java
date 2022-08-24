@@ -8,28 +8,28 @@ public class Statistics {
 
     private final static Statistics statistics = new Statistics();
     @Getter
-    public static AtomicInteger countOfCreatures = new AtomicInteger(0);                                       //общее количество существ
+    public static AtomicInteger countOfCreatures = new AtomicInteger(0);  //РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСѓС‰РµСЃС‚РІ
     @Getter
-    private static AtomicInteger countOfEatenAnimals = new AtomicInteger(0); //общее количество съеденных животных
+    private static AtomicInteger countOfEatenAnimals = new AtomicInteger(0); //РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРґРµРЅРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
     @Getter
-    private static AtomicInteger countOfEatenPlants = new AtomicInteger(0); // общее количество съеденных растений
+    private static AtomicInteger countOfEatenPlants = new AtomicInteger(0); // РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЉРµРґРµРЅРЅС‹С… СЂР°СЃС‚РµРЅРёР№
     @Getter
-    private static AtomicInteger countOfDiedOfHunger = new AtomicInteger(0); // общее количество умерших от голода животных
+    private static AtomicInteger countOfDiedOfHunger = new AtomicInteger(0); // РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓРјРµСЂС€РёС… РѕС‚ РіРѕР»РѕРґР° Р¶РёРІРѕС‚РЅС‹С…
     @Getter
-    private static AtomicInteger countOfBirths = new AtomicInteger(0); // общее количество рожденных животных
+    private static AtomicInteger countOfBirths = new AtomicInteger(0); // РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЂРѕР¶РґРµРЅРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
     @Getter
-    private static AtomicInteger countOfDissolved = new AtomicInteger(0); // общее количество уничтоженных существ посредством метода "dissolve..." в классе Creature
+    private static AtomicInteger countOfDissolved = new AtomicInteger(0); // РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓРЅРёС‡С‚РѕР¶РµРЅРЅС‹С… СЃСѓС‰РµСЃС‚РІ РїРѕСЃСЂРµРґСЃС‚РІРѕРј РјРµС‚РѕРґР° "dissolve..." РІ РєР»Р°СЃСЃРµ Creature
     @Getter
-    private static AtomicInteger countOfDays = new AtomicInteger(0); // количество пройденных дней
+    private static AtomicInteger countOfDays = new AtomicInteger(0); // РєРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕР№РґРµРЅРЅС‹С… РґРЅРµР№
 
     @Override
-    public String toString() {  // вывод общей статистики
-        return "День " + countOfDays + " завершен\n" +
-                "Съедено животных: " + countOfEatenAnimals + "\n" +
-                "Съедено растений: " + countOfEatenPlants + "\n" +
-                "Умерло от голода: " + countOfDiedOfHunger + "\n" +
-                "Рождено животных: " + countOfBirths + "\n" +
-                "Уничтожено существ: " + countOfDissolved;
+    public String toString() {  // РІС‹РІРѕРґ РѕР±С‰РµР№ СЃС‚Р°С‚РёСЃС‚РёРєРё
+        return "Р”РµРЅСЊ " + countOfDays + " Р·Р°РІРµСЂС€РµРЅ\n" +
+                "РЎСЉРµРґРµРЅРѕ Р¶РёРІРѕС‚РЅС‹С…: " + countOfEatenAnimals + "\n" +
+                "РЎСЉРµРґРµРЅРѕ СЂР°СЃС‚РµРЅРёР№: " + countOfEatenPlants + "\n" +
+                "РЈРјРµСЂР»Рѕ РѕС‚ РіРѕР»РѕРґР°: " + countOfDiedOfHunger + "\n" +
+                "Р РѕР¶РґРµРЅРѕ Р¶РёРІРѕС‚РЅС‹С…: " + countOfBirths + "\n" +
+                "РЈРЅРёС‡С‚РѕР¶РµРЅРѕ СЃСѓС‰РµСЃС‚РІ: " + countOfDissolved;
     }
 
     public static Statistics getInstance() {
