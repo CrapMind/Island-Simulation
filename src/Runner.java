@@ -11,25 +11,25 @@ public class Runner {
 
 
     public static void main(String[] args) {
-        var executorServices = new ArrayList<ExecutorService>();        //список сервисов с животными
-        var babyServices = new ArrayList<ExecutorService>();            //список сервисов с новорожденными животными
+        var executorServices = new ArrayList<ExecutorService>();        //СЃРїРёСЃРѕРє СЃРµСЂРІРёСЃРѕРІ СЃ Р¶РёРІРѕС‚РЅС‹РјРё
+        var babyServices = new ArrayList<ExecutorService>();            //СЃРїРёСЃРѕРє СЃРµСЂРІРёСЃРѕРІ СЃ РЅРѕРІРѕСЂРѕР¶РґРµРЅРЅС‹РјРё Р¶РёРІРѕС‚РЅС‹РјРё
         for (Location[] locations : Island.getWorld()) {
-            for (Location location : locations) {                       // идем по локациям - добавляем все сервисы в списки
+            for (Location location : locations) {                       // РёРґРµРј РїРѕ Р»РѕРєР°С†РёСЏРј - РґРѕР±Р°РІР»СЏРµРј РІСЃРµ СЃРµСЂРІРёСЃС‹ РІ СЃРїРёСЃРєРё
                 executorServices.add(location.getCreaturesService());
                 babyServices.add(location.getBabyService());
             }
         }
-        Island.revive();        // оживляем остров - запускаем нити
-        System.out.println("Создано существ: " + Statistics.countOfCreatures);
-        Timer lifeTimer = new Timer();   // таймер, считающий количество дней
+        Island.revive();        // РѕР¶РёРІР»СЏРµРј РѕСЃС‚СЂРѕРІ - Р·Р°РїСѓСЃРєР°РµРј РЅРёС‚Рё
+        System.out.println("РЎРѕР·РґР°РЅРѕ СЃСѓС‰РµСЃС‚РІ: " + Statistics.countOfCreatures);
+        Timer lifeTimer = new Timer();   // С‚Р°Р№РјРµСЂ, СЃС‡РёС‚Р°СЋС‰РёР№ РєРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№
         lifeTimer.schedule(new TimerTask() {
             public void run() {
                 Days();
-                if (Statistics.getCountOfDays().get() > 9) { //если прошло больше 9 дней, все останавливается
+                if (Statistics.getCountOfDays().get() > 9) { //РµСЃР»Рё РїСЂРѕС€Р»Рѕ Р±РѕР»СЊС€Рµ 9 РґРЅРµР№, РІСЃРµ РѕСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ
                     executorServices.forEach(ExecutorService::shutdownNow);
                     babyServices.forEach(ExecutorService::shutdownNow);
                     lifeTimer.cancel();
-                    System.err.println("Мир был превращен в изначальную пустоту");
+                    System.err.println("РњРёСЂ Р±С‹Р» РїСЂРµРІСЂР°С‰РµРЅ РІ РёР·РЅР°С‡Р°Р»СЊРЅСѓСЋ РїСѓСЃС‚РѕС‚Сѓ");
                     System.exit(0);
                 }
             }
@@ -38,7 +38,7 @@ public class Runner {
     static void Days() {
         Statistics.getCountOfDays().getAndIncrement();
         System.err.println("____________________");
-        System.out.println(Statistics.getInstance()); // вывод статистики за каждый день
+        System.out.println(Statistics.getInstance()); // РІС‹РІРѕРґ СЃС‚Р°С‚РёСЃС‚РёРєРё Р·Р° РєР°Р¶РґС‹Р№ РґРµРЅСЊ
     }
 }
 
