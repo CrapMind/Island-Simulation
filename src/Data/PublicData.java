@@ -2,7 +2,7 @@ package Data;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class PublicData { // содержит id животных
+public class PublicData { // СЃРѕРґРµСЂР¶РёС‚ id Р¶РёРІРѕС‚РЅС‹С…
 
     public static AtomicInteger locationId = new AtomicInteger(0);
 
