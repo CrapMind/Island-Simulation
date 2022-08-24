@@ -12,24 +12,24 @@ import java.util.Set;
 public abstract class Creature {
     @Getter
     @Setter
-    private Location location; // локация в которой находится существо
+    private Location location; // Р»РѕРєР°С†РёСЏ РІ РєРѕС‚РѕСЂРѕР№ РЅР°С…РѕРґРёС‚СЃСЏ СЃСѓС‰РµСЃС‚РІРѕ
     @Getter
-    private CreatureType creatureType; // переменная содержащая тип животного
-    @Getter
-    @Setter
-    private double weight; //вес
+    private CreatureType creatureType; // РїРµСЂРµРјРµРЅРЅР°СЏ СЃРѕРґРµСЂР¶Р°С‰Р°СЏ С‚РёРї Р¶РёРІРѕС‚РЅРѕРіРѕ
     @Getter
     @Setter
-    private boolean canMultiply; // переменная хранящая значение на возможность размножения
+    private double weight; //РІРµСЃ
+    @Getter
+    @Setter
+    private boolean canMultiply; // РїРµСЂРµРјРµРЅРЅР°СЏ С…СЂР°РЅСЏС‰Р°СЏ Р·РЅР°С‡РµРЅРёРµ РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЂР°Р·РјРЅРѕР¶РµРЅРёСЏ
     @Override
     public String toString() {
         return getCreatureType().toString();
     }
-    public synchronized void dissolveIntoEternity(Set<Creature> creatures, Creature creature) { //метод отвечающий за уничтожение существа
+    public synchronized void dissolveIntoEternity(Set<Creature> creatures, Creature creature) { //РјРµС‚РѕРґ РѕС‚РІРµС‡Р°СЋС‰РёР№ Р·Р° СѓРЅРёС‡С‚РѕР¶РµРЅРёРµ СЃСѓС‰РµСЃС‚РІР°
         synchronized (Collections.unmodifiableSet(creatures)) {
             creatures.remove(creature);
             if (creature instanceof Animal animal) {
-                animal.destroy(); // уничтожаем животное
+                animal.destroy(); // // СѓРЅРёС‡С‚РѕР¶Р°РµРј Р¶РёРІРѕС‚РЅРѕРµ
             }
         }
         Statistics.getCountOfDissolved().incrementAndGet();
