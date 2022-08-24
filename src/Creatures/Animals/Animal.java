@@ -21,18 +21,18 @@ public abstract class Animal extends Creature implements Runnable {
 
     @Getter
     @Setter
-    private volatile int id;// внутренняя переменная, нужна была для изначальных проверок, просто не чистил
+    private volatile int id;// РІРЅСѓС‚СЂРµРЅРЅСЏСЏ РїРµСЂРµРјРµРЅРЅР°СЏ, РЅСѓР¶РЅР° Р±С‹Р»Р° РґР»СЏ РёР·РЅР°С‡Р°Р»СЊРЅС‹С… РїСЂРѕРІРµСЂРѕРє, РїСЂРѕСЃС‚Рѕ РЅРµ С‡РёСЃС‚РёР»
     @Getter
-    private double maxSatiety; // максимальная сытость
+    private double maxSatiety; // РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ СЃС‹С‚РѕСЃС‚СЊ
     @Getter
     @Setter
-    private volatile double satiety; // сытость
+    private volatile double satiety; // СЃС‹С‚РѕСЃС‚СЊ
     @Getter
-    private volatile double weight; // вес
+    private volatile double weight; // РІРµСЃ
     @Getter
-    private int movingSpeed; // максимальное количество клеток, на которые животное может походить
+    private int movingSpeed; // РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РєР»РµС‚РѕРє, РЅР° РєРѕС‚РѕСЂС‹Рµ Р¶РёРІРѕС‚РЅРѕРµ РјРѕР¶РµС‚ РїРѕС…РѕРґРёС‚СЊ
     @Getter
-    private Map<CreatureType, Integer> dependencies; // мапа содержащая значения: тип животных, шанс съедения
+    private Map<CreatureType, Integer> dependencies; // РјР°РїР° СЃРѕРґРµСЂР¶Р°С‰Р°СЏ Р·РЅР°С‡РµРЅРёСЏ: С‚РёРї Р¶РёРІРѕС‚РЅС‹С…, С€Р°РЅСЃ СЃСЉРµРґРµРЅРёСЏ
 
     public Animal(double weight, int movingSpeed, double maxSatiety) {
         this.weight = weight;
@@ -40,7 +40,7 @@ public abstract class Animal extends Creature implements Runnable {
         this.maxSatiety = maxSatiety;
     }
 
-    public void searchForFood(Map<CreatureType, Integer> dependencies, List<Creature> potentialFood) { // Поиск еды. В параметрах мапа с типами животных и шансом съедения, и список животных для съедения
+    public void searchForFood(Map<CreatureType, Integer> dependencies, List<Creature> potentialFood) { // РџРѕРёСЃРє РµРґС‹. Р’ РїР°СЂР°РјРµС‚СЂР°С… РјР°РїР° СЃ С‚РёРїР°РјРё Р¶РёРІРѕС‚РЅС‹С… Рё С€Р°РЅСЃРѕРј СЃСЉРµРґРµРЅРёСЏ, Рё СЃРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С… РґР»СЏ СЃСЉРµРґРµРЅРёСЏ
         try {
             Thread.sleep(200);
         }catch (InterruptedException e) {
@@ -48,10 +48,10 @@ public abstract class Animal extends Creature implements Runnable {
         }
         synchronized (Collections.unmodifiableList(potentialFood)) {
             for (Creature creature : potentialFood) {
-                if (dependencies.containsKey(creature.getCreatureType())) { //проверяем есть ли в мапе животное нужного типа
-                    var dices = ThreadLocalRandom.current().nextInt(1, 100); // рандомные кубики
-                    if (dices <= dependencies.get(creature.getCreatureType())) { // если шанс съедения совпадает с шансом в мапе - кушаем
-                        eat(creature, creature instanceof Caterpillar ? getLocation().getCaterpillars() : getFood()); // если едим гусеницу - передаем список гусениц
+                if (dependencies.containsKey(creature.getCreatureType())) { //РїСЂРѕРІРµСЂСЏРµРј РµСЃС‚СЊ Р»Рё РІ РјР°РїРµ Р¶РёРІРѕС‚РЅРѕРµ РЅСѓР¶РЅРѕРіРѕ С‚РёРїР°
+                    var dices = ThreadLocalRandom.current().nextInt(1, 100); // СЂР°РЅРґРѕРјРЅС‹Рµ РєСѓР±РёРєРё
+                    if (dices <= dependencies.get(creature.getCreatureType())) { // РµСЃР»Рё С€Р°РЅСЃ СЃСЉРµРґРµРЅРёСЏ СЃРѕРІРїР°РґР°РµС‚ СЃ С€Р°РЅСЃРѕРј РІ РјР°РїРµ - РєСѓС€Р°РµРј
+                        eat(creature, creature instanceof Caterpillar ? getLocation().getCaterpillars() : getFood()); // РµСЃР»Рё РµРґРёРј РіСѓСЃРµРЅРёС†Сѓ - РїРµСЂРµРґР°РµРј СЃРїРёСЃРѕРє РіСѓСЃРµРЅРёС†
                         break;
                     }
                 }
@@ -65,18 +65,18 @@ public abstract class Animal extends Creature implements Runnable {
         } catch (InterruptedException e) {
             return;
         }
-        var dices = ThreadLocalRandom.current().nextInt(0, getMovingSpeed()); // рандомные кубики от 0 до максимально возможного хождения
+        var dices = ThreadLocalRandom.current().nextInt(0, getMovingSpeed()); // СЂР°РЅРґРѕРјРЅС‹Рµ РєСѓР±РёРєРё РѕС‚ 0 РґРѕ РјР°РєСЃРёРјР°Р»СЊРЅРѕ РІРѕР·РјРѕР¶РЅРѕРіРѕ С…РѕР¶РґРµРЅРёСЏ
         for (int i = 0; i < dices; i++) {
-            Direction direction = Direction.directions[ThreadLocalRandom.current().nextInt(0, Direction.directions.length)]; // получаем случайное направление
-            if (!getLocation().isExist(getLocation().locationByDirection(direction))) { // если локация не существует - пытаемся идти снова
+            Direction direction = Direction.directions[ThreadLocalRandom.current().nextInt(0, Direction.directions.length)]; // РїРѕР»СѓС‡Р°РµРј СЃР»СѓС‡Р°Р№РЅРѕРµ РЅР°РїСЂР°РІР»РµРЅРёРµ
+            if (!getLocation().isExist(getLocation().locationByDirection(direction))) { // РµСЃР»Рё Р»РѕРєР°С†РёСЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ - РїС‹С‚Р°РµРјСЃСЏ РёРґС‚Рё СЃРЅРѕРІР°
                 i--;
                 continue;
             }
-            goToLocation(getLocation().locationByDirection(direction)); // идем по переданному направлению
+            goToLocation(getLocation().locationByDirection(direction)); // РёРґРµРј РїРѕ РїРµСЂРµРґР°РЅРЅРѕРјСѓ РЅР°РїСЂР°РІР»РµРЅРёСЋ
         }
     }
 
-    private void goToLocation(Location nextLocation) { // метод меняющий значение локации у животного при удачном переходе
+    private void goToLocation(Location nextLocation) { // РјРµС‚РѕРґ РјРµРЅСЏСЋС‰РёР№ Р·РЅР°С‡РµРЅРёРµ Р»РѕРєР°С†РёРё Сѓ Р¶РёРІРѕС‚РЅРѕРіРѕ РїСЂРё СѓРґР°С‡РЅРѕРј РїРµСЂРµС…РѕРґРµ
         if (this instanceof Carnivore) {
             nextLocation.getCarnivores().add(this);
             getLocation().getCarnivores().remove(this);
@@ -88,26 +88,26 @@ public abstract class Animal extends Creature implements Runnable {
             setLocation(nextLocation);
     }
 
-    public void feed(double creatureWeight) { // метод меняющий сытость при съедании
+    public void feed(double creatureWeight) { // РјРµС‚РѕРґ РјРµРЅСЏСЋС‰РёР№ СЃС‹С‚РѕСЃС‚СЊ РїСЂРё СЃСЉРµРґР°РЅРёРё
         this.satiety = this.satiety + creatureWeight <= this.maxSatiety ? this.satiety + creatureWeight : this.maxSatiety;
     }
 
-    public void removeSatiety () { // метод убирающий сытость в таймере
+    public void removeSatiety () { // РјРµС‚РѕРґ СѓР±РёСЂР°СЋС‰РёР№ СЃС‹С‚РѕСЃС‚СЊ РІ С‚Р°Р№РјРµСЂРµ
         this.satiety -= (satiety / 100) * 30;
     }
 
-    public boolean isFedUp () { // метод проверяющий не насытилось ли животное
+    public boolean isFedUp () { // РјРµС‚РѕРґ РїСЂРѕРІРµСЂСЏСЋС‰РёР№ РЅРµ РЅР°СЃС‹С‚РёР»РѕСЃСЊ Р»Рё Р¶РёРІРѕС‚РЅРѕРµ
         return getSatiety() >= getMaxSatiety();
     }
 
-    private void eat(Creature creature, Set<Creature> potentialFood){ // метод координирующий списки животных
-        feed(creature.getWeight()); // меняем сытость
-        dissolveIntoEternity(potentialFood, creature); // уничтожаем съеденное существо и убираем его из списка
-        if (creature instanceof Plants) { // если это растение - в статистику растений
+    private void eat(Creature creature, Set<Creature> potentialFood){ // РјРµС‚РѕРґ РєРѕРѕСЂРґРёРЅРёСЂСѓСЋС‰РёР№ СЃРїРёСЃРєРё Р¶РёРІРѕС‚РЅС‹С…
+        feed(creature.getWeight()); // РјРµРЅСЏРµРј СЃС‹С‚РѕСЃС‚СЊ
+        dissolveIntoEternity(potentialFood, creature); // СѓРЅРёС‡С‚РѕР¶Р°РµРј СЃСЉРµРґРµРЅРЅРѕРµ СЃСѓС‰РµСЃС‚РІРѕ Рё СѓР±РёСЂР°РµРј РµРіРѕ РёР· СЃРїРёСЃРєР°
+        if (creature instanceof Plants) { // РµСЃР»Рё СЌС‚Рѕ СЂР°СЃС‚РµРЅРёРµ - РІ СЃС‚Р°С‚РёСЃС‚РёРєСѓ СЂР°СЃС‚РµРЅРёР№
             Statistics.getCountOfEatenPlants().incrementAndGet();
         }
         else {
-            Statistics.getCountOfEatenAnimals().incrementAndGet(); // если животное - в статистику животных
+            Statistics.getCountOfEatenAnimals().incrementAndGet(); // РµСЃР»Рё Р¶РёРІРѕС‚РЅРѕРµ - РІ СЃС‚Р°С‚РёСЃС‚РёРєСѓ Р¶РёРІРѕС‚РЅС‹С…
         }
 
     }
@@ -118,12 +118,12 @@ public abstract class Animal extends Creature implements Runnable {
                 }catch (InterruptedException e) {
                     return;
                 }
-                var dices = ThreadLocalRandom.current().nextInt(1, 100); // рандомные кубики
-                if (dices <= 30) { // 30% шанс на размножение
+                var dices = ThreadLocalRandom.current().nextInt(1, 100); // СЂР°РЅРґРѕРјРЅС‹Рµ РєСѓР±РёРєРё
+                if (dices <= 30) { // 30% С€Р°РЅСЃ РЅР° СЂР°Р·РјРЅРѕР¶РµРЅРёРµ
                     Animal babyCreature = (Animal) CreatureCreator.create(getCreatureType());
-                    creatures.add(babyCreature); // добавляем животное в список животных в данной локации
-                    this.setCanMultiply(false); // текущее животное больше не может размножаться
-                    runBabies(babyCreature); // запускаем метод "оживляющий" новорожденных
+                    creatures.add(babyCreature); // РґРѕР±Р°РІР»СЏРµРј Р¶РёРІРѕС‚РЅРѕРµ РІ СЃРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С… РІ РґР°РЅРЅРѕР№ Р»РѕРєР°С†РёРё
+                    this.setCanMultiply(false); // С‚РµРєСѓС‰РµРµ Р¶РёРІРѕС‚РЅРѕРµ Р±РѕР»СЊС€Рµ РЅРµ РјРѕР¶РµС‚ СЂР°Р·РјРЅРѕР¶Р°С‚СЊСЃСЏ
+                    runBabies(babyCreature); // Р·Р°РїСѓСЃРєР°РµРј РјРµС‚РѕРґ "РѕР¶РёРІР»СЏСЋС‰РёР№" РЅРѕРІРѕСЂРѕР¶РґРµРЅРЅС‹С…
                 }
         }
 
@@ -136,31 +136,31 @@ public abstract class Animal extends Creature implements Runnable {
     @SneakyThrows
     @Override
     public void run() {
-        boolean isTheEndOfTheWorld = getLocation().getCreaturesService().isShutdown();  // переменная проверяющая завершились ли дни
-        boolean diedOfHunger = Statistics.getCountOfDays().get() > 1 && getSatiety() <= 0;  // переменная проверяющая сытость
+        boolean isTheEndOfTheWorld = getLocation().getCreaturesService().isShutdown();  // РїРµСЂРµРјРµРЅРЅР°СЏ РїСЂРѕРІРµСЂСЏСЋС‰Р°СЏ Р·Р°РІРµСЂС€РёР»РёСЃСЊ Р»Рё РґРЅРё
+        boolean diedOfHunger = Statistics.getCountOfDays().get() > 1 && getSatiety() <= 0;  // РїРµСЂРµРјРµРЅРЅР°СЏ РїСЂРѕРІРµСЂСЏСЋС‰Р°СЏ СЃС‹С‚РѕСЃС‚СЊ
 
-        Timer hunger = new Timer();     // таймер, нужен для снижения сытости в определенный период
-        List<Creature> potentialFood = new ArrayList<>(getFood()); // список из множества животных, чтобы можно было удобно работать в цикле (конкретно в методе searchForFood)
-        if (getDependencies().containsKey(CreatureType.CATERPILLAR)) // если животное может есть гусениц - добавляем их в список потенциальной еды
+        Timer hunger = new Timer();     // С‚Р°Р№РјРµСЂ, РЅСѓР¶РµРЅ РґР»СЏ СЃРЅРёР¶РµРЅРёСЏ СЃС‹С‚РѕСЃС‚Рё РІ РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ РїРµСЂРёРѕРґ
+        List<Creature> potentialFood = new ArrayList<>(getFood()); // СЃРїРёСЃРѕРє РёР· РјРЅРѕР¶РµСЃС‚РІР° Р¶РёРІРѕС‚РЅС‹С…, С‡С‚РѕР±С‹ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ СѓРґРѕР±РЅРѕ СЂР°Р±РѕС‚Р°С‚СЊ РІ С†РёРєР»Рµ (РєРѕРЅРєСЂРµС‚РЅРѕ РІ РјРµС‚РѕРґРµ searchForFood)
+        if (getDependencies().containsKey(CreatureType.CATERPILLAR)) // РµСЃР»Рё Р¶РёРІРѕС‚РЅРѕРµ РјРѕР¶РµС‚ РµСЃС‚СЊ РіСѓСЃРµРЅРёС† - РґРѕР±Р°РІР»СЏРµРј РёС… РІ СЃРїРёСЃРѕРє РїРѕС‚РµРЅС†РёР°Р»СЊРЅРѕР№ РµРґС‹
         {
             potentialFood.addAll(getLocation().getCaterpillars());
         }
-        while (!Thread.currentThread().isInterrupted()) {       // пока нить работает, делаем одни и те же действия
+        while (!Thread.currentThread().isInterrupted()) {       // РїРѕРєР° РЅРёС‚СЊ СЂР°Р±РѕС‚Р°РµС‚, РґРµР»Р°РµРј РѕРґРЅРё Рё С‚Рµ Р¶Рµ РґРµР№СЃС‚РІРёСЏ
             hunger.schedule(new TimerTask() {
                 public void run() {
                     removeSatiety();
                     }
-                }, 1000, 2000); // после задержки в 1 сек (1 день) начинаем снижать сытость, каждые 2 дня
-            if (!isFedUp() && !potentialFood.isEmpty()) {       // если животное не голодно, и список существ на локации не пуст - ищем еду
+                }, 1000, 2000); // РїРѕСЃР»Рµ Р·Р°РґРµСЂР¶РєРё РІ 1 СЃРµРє (1 РґРµРЅСЊ) РЅР°С‡РёРЅР°РµРј СЃРЅРёР¶Р°С‚СЊ СЃС‹С‚РѕСЃС‚СЊ, РєР°Р¶РґС‹Рµ 2 РґРЅСЏ
+            if (!isFedUp() && !potentialFood.isEmpty()) {       // РµСЃР»Рё Р¶РёРІРѕС‚РЅРѕРµ РЅРµ РіРѕР»РѕРґРЅРѕ, Рё СЃРїРёСЃРѕРє СЃСѓС‰РµСЃС‚РІ РЅР° Р»РѕРєР°С†РёРё РЅРµ РїСѓСЃС‚ - РёС‰РµРј РµРґСѓ
                 searchForFood(getDependencies(), potentialFood);
             }
-            if (isCanMultiply() && !isFromList().isEmpty()) {    // если животное способно к размножению, и животные такого типа выжили на локации - пробуем размножаться
+            if (isCanMultiply() && !isFromList().isEmpty()) {    // РµСЃР»Рё Р¶РёРІРѕС‚РЅРѕРµ СЃРїРѕСЃРѕР±РЅРѕ Рє СЂР°Р·РјРЅРѕР¶РµРЅРёСЋ, Рё Р¶РёРІРѕС‚РЅС‹Рµ С‚Р°РєРѕРіРѕ С‚РёРїР° РІС‹Р¶РёР»Рё РЅР° Р»РѕРєР°С†РёРё - РїСЂРѕР±СѓРµРј СЂР°Р·РјРЅРѕР¶Р°С‚СЊСЃСЏ
                 multiply(isFromList());
             }
         moving();
-            if (diedOfHunger || isTheEndOfTheWorld) {       // при вышеописанных возможных концах жизни - останавливаем существование индивида
-                dissolveIntoEternity(isFromList(), this); // передаем животное в метод удаляющий животное из списка, останавливающий нить и ведущий статистику
-                if (diedOfHunger) {     // если умер от голода - завершаем таймер и добавляем в статистику
+            if (diedOfHunger || isTheEndOfTheWorld) {       // РїСЂРё РІС‹С€РµРѕРїРёСЃР°РЅРЅС‹С… РІРѕР·РјРѕР¶РЅС‹С… РєРѕРЅС†Р°С… Р¶РёР·РЅРё - РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ РёРЅРґРёРІРёРґР°
+                dissolveIntoEternity(isFromList(), this); // РїРµСЂРµРґР°РµРј Р¶РёРІРѕС‚РЅРѕРµ РІ РјРµС‚РѕРґ СѓРґР°Р»СЏСЋС‰РёР№ Р¶РёРІРѕС‚РЅРѕРµ РёР· СЃРїРёСЃРєР°, РѕСЃС‚Р°РЅР°РІР»РёРІР°СЋС‰РёР№ РЅРёС‚СЊ Рё РІРµРґСѓС‰РёР№ СЃС‚Р°С‚РёСЃС‚РёРєСѓ
+                if (diedOfHunger) {     // РµСЃР»Рё СѓРјРµСЂ РѕС‚ РіРѕР»РѕРґР° - Р·Р°РІРµСЂС€Р°РµРј С‚Р°Р№РјРµСЂ Рё РґРѕР±Р°РІР»СЏРµРј РІ СЃС‚Р°С‚РёСЃС‚РёРєСѓ
                     hunger.cancel();
                     Statistics.getCountOfDiedOfHunger().incrementAndGet();
                 }
@@ -170,20 +170,20 @@ public abstract class Animal extends Creature implements Runnable {
     }
 
     private void runBabies(Animal babyAnimal) {
-        babyAnimal.setCanMultiply(true); // задаем возможность размножения
-        babyAnimal.setLocation(getLocation()); // передаем в параметры животного текущую локацию
-        getLocation().getBabyService().schedule(babyAnimal, 1, TimeUnit.SECONDS); // животное оживает через 1 день ( 1 сек )
-        Statistics.getCountOfBirths().incrementAndGet(); // добавляем данные в статистику
-    } // метод оживляющих новорожденных существ
+        babyAnimal.setCanMultiply(true); // Р·Р°РґР°РµРј РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЂР°Р·РјРЅРѕР¶РµРЅРёСЏ
+        babyAnimal.setLocation(getLocation()); // РїРµСЂРµРґР°РµРј РІ РїР°СЂР°РјРµС‚СЂС‹ Р¶РёРІРѕС‚РЅРѕРіРѕ С‚РµРєСѓС‰СѓСЋ Р»РѕРєР°С†РёСЋ
+        getLocation().getBabyService().schedule(babyAnimal, 1, TimeUnit.SECONDS); // Р¶РёРІРѕС‚РЅРѕРµ РѕР¶РёРІР°РµС‚ С‡РµСЂРµР· 1 РґРµРЅСЊ ( 1 СЃРµРє )
+        Statistics.getCountOfBirths().incrementAndGet(); // РґРѕР±Р°РІР»СЏРµРј РґР°РЅРЅС‹Рµ РІ СЃС‚Р°С‚РёСЃС‚РёРєСѓ
+    } // РјРµС‚РѕРґ РѕР¶РёРІР»СЏСЋС‰РёС… РЅРѕРІРѕСЂРѕР¶РґРµРЅРЅС‹С… СЃСѓС‰РµСЃС‚РІ
 
-    public void destroy() { // метод завершающий работу нити при каких-то обстоятельствах
+    public void destroy() { // РјРµС‚РѕРґ Р·Р°РІРµСЂС€Р°СЋС‰РёР№ СЂР°Р±РѕС‚Сѓ РЅРёС‚Рё РїСЂРё РєР°РєРёС…-С‚Рѕ РѕР±СЃС‚РѕСЏС‚РµР»СЊСЃС‚РІР°С…
         Thread.currentThread().interrupt();
     }
 
     public Set<Creature> getFood() {
         return this instanceof Carnivore ? getLocation().getHerbivores() : getLocation().getPlants();
-    } // метод на получение списка еды для данного типа животного
+    } // РјРµС‚РѕРґ РЅР° РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РµРґС‹ РґР»СЏ РґР°РЅРЅРѕРіРѕ С‚РёРїР° Р¶РёРІРѕС‚РЅРѕРіРѕ
     public Set<Creature> isFromList() {
         return this instanceof Carnivore ? getLocation().getCarnivores() : getLocation().getHerbivores();
-    } // метод определяет из какого списка животное
+    } // РјРµС‚РѕРґ РѕРїСЂРµРґРµР»СЏРµС‚ РёР· РєР°РєРѕРіРѕ СЃРїРёСЃРєР° Р¶РёРІРѕС‚РЅРѕРµ
 }
