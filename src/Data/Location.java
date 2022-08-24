@@ -18,35 +18,35 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Location {
     @Getter
-    private int id;     // внутренняя переменная для проверок, по сути не нужна
+    private int id;     // РІРЅСѓС‚СЂРµРЅРЅСЏСЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РїСЂРѕРІРµСЂРѕРє, РїРѕ СЃСѓС‚Рё РЅРµ РЅСѓР¶РЅР°
     @Getter
-    private int x;      // координата x
+    private int x;      // РєРѕРѕСЂРґРёРЅР°С‚Р° x
     @Getter
-    private int y;      // координата y
-    private ThreadLocalRandom random = ThreadLocalRandom.current(); //переменная отвечающая за рандом
+    private int y;      // РєРѕРѕСЂРґРёРЅР°С‚Р° y
+    private ThreadLocalRandom random = ThreadLocalRandom.current(); //РїРµСЂРµРјРµРЅРЅР°СЏ РѕС‚РІРµС‡Р°СЋС‰Р°СЏ Р·Р° СЂР°РЅРґРѕРј
     @Getter
-    private volatile Set <Creature> caterpillars = createRandomCreatures(GlobalCreatureTypes.CATERPILLAR); //список гусениц
+    private volatile Set <Creature> caterpillars = createRandomCreatures(GlobalCreatureTypes.CATERPILLAR); //СЃРїРёСЃРѕРє РіСѓСЃРµРЅРёС†
     @Getter
-    private volatile Set <Creature> plants = createRandomCreatures(GlobalCreatureTypes.PLANT); // список растений
+    private volatile Set <Creature> plants = createRandomCreatures(GlobalCreatureTypes.PLANT); // СЃРїРёСЃРѕРє СЂР°СЃС‚РµРЅРёР№
     @Getter
-    private volatile Set <Creature> herbivores = createRandomCreatures(GlobalCreatureTypes.HERBIVORE); // список травоядных
+    private volatile Set <Creature> herbivores = createRandomCreatures(GlobalCreatureTypes.HERBIVORE); // СЃРїРёСЃРѕРє С‚СЂР°РІРѕСЏРґРЅС‹С…
     @Getter
-    private volatile Set <Creature> carnivores = createRandomCreatures(GlobalCreatureTypes.CARNIVORE); // список плотоядных
+    private volatile Set <Creature> carnivores = createRandomCreatures(GlobalCreatureTypes.CARNIVORE); // СЃРїРёСЃРѕРє РїР»РѕС‚РѕСЏРґРЅС‹С…
     @Getter
-    private final ExecutorService creaturesService = Executors.newFixedThreadPool(2);   // сервис запускающий животных в данной локации
+    private final ExecutorService creaturesService = Executors.newFixedThreadPool(2);   // СЃРµСЂРІРёСЃ Р·Р°РїСѓСЃРєР°СЋС‰РёР№ Р¶РёРІРѕС‚РЅС‹С… РІ РґР°РЅРЅРѕР№ Р»РѕРєР°С†РёРё
     @Getter
-    private final ScheduledExecutorService babyService = Executors.newScheduledThreadPool(2); // сервис запускающий детей животных в данной локации
+    private final ScheduledExecutorService babyService = Executors.newScheduledThreadPool(2); // СЃРµСЂРІРёСЃ Р·Р°РїСѓСЃРєР°СЋС‰РёР№ РґРµС‚РµР№ Р¶РёРІРѕС‚РЅС‹С… РІ РґР°РЅРЅРѕР№ Р»РѕРєР°С†РёРё
 
     public Location(int x, int y) {
         this.x = x;
         this.y = y;
         this.id = PublicData.locationId.incrementAndGet();
-    } //Создаем локацию и сразу присваиваем координаты
+    } //РЎРѕР·РґР°РµРј Р»РѕРєР°С†РёСЋ Рё СЃСЂР°Р·Сѓ РїСЂРёСЃРІР°РёРІР°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹
 
-    public boolean isExist(Location location) {     // метод на проверку существования локации
+    public boolean isExist(Location location) {     // РјРµС‚РѕРґ РЅР° РїСЂРѕРІРµСЂРєСѓ СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ Р»РѕРєР°С†РёРё
         return this != location && location != null;
     }
-    public Location locationByDirection (Direction direction) {    // метод для получения локации по направлению
+    public Location locationByDirection (Direction direction) {    // РјРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ Р»РѕРєР°С†РёРё РїРѕ РЅР°РїСЂР°РІР»РµРЅРёСЋ
         Location[][]world = Island.getWorld();
         try {
             return switch (direction) {
@@ -56,11 +56,11 @@ public class Location {
                 case WEST -> world[getX()][getY() - 1];
             };
         } catch (IndexOutOfBoundsException | NullPointerException e) {
-            return this; // возвращает текущую локацию, если по указанному направлению выходим за пределы карты
+            return this; // РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСѓС‰СѓСЋ Р»РѕРєР°С†РёСЋ, РµСЃР»Рё РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РЅР°РїСЂР°РІР»РµРЅРёСЋ РІС‹С…РѕРґРёРј Р·Р° РїСЂРµРґРµР»С‹ РєР°СЂС‚С‹
         }
-    } // Метод для получения локации по направлению
+    } // РњРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ Р»РѕРєР°С†РёРё РїРѕ РЅР°РїСЂР°РІР»РµРЅРёСЋ
 
-    private Set<Creature> createRandomCreatures(GlobalCreatureTypes type) {   // метод для создания случайных существ по глобальному типу (хищники, травоядные, растения)
+    private Set<Creature> createRandomCreatures(GlobalCreatureTypes type) {   // РјРµС‚РѕРґ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЃР»СѓС‡Р°Р№РЅС‹С… СЃСѓС‰РµСЃС‚РІ РїРѕ РіР»РѕР±Р°Р»СЊРЅРѕРјСѓ С‚РёРїСѓ (С…РёС‰РЅРёРєРё, С‚СЂР°РІРѕСЏРґРЅС‹Рµ, СЂР°СЃС‚РµРЅРёСЏ)
         var creatures = new HashSet<Creature>();
         switch (type) {
             case CARNIVORE -> {
@@ -76,8 +76,8 @@ public class Location {
             case PLANT -> creatures.addAll(createCreaturesByType(CreatureType.PLANT));
             case CATERPILLAR -> creatures.addAll(createCreaturesByType(CreatureType.CATERPILLAR));
         }
-        creatures.forEach(creature -> creature.setLocation(this)); // при создании присваиваем текущую локацию
-        creatures.forEach(creature -> creature.setCanMultiply(true)); // задаем с рождения возможность размножаться
+        creatures.forEach(creature -> creature.setLocation(this)); // РїСЂРё СЃРѕР·РґР°РЅРёРё РїСЂРёСЃРІР°РёРІР°РµРј С‚РµРєСѓС‰СѓСЋ Р»РѕРєР°С†РёСЋ
+        creatures.forEach(creature -> creature.setCanMultiply(true)); // Р·Р°РґР°РµРј СЃ СЂРѕР¶РґРµРЅРёСЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЂР°Р·РјРЅРѕР¶Р°С‚СЊСЃСЏ
         return creatures;
     }
     @Override
@@ -85,15 +85,15 @@ public class Location {
         return "Location " + getId() + ": | Coordinates: x[" + getX() + "] y[" + getY() + "]";
     }
 
-    public void revive() {  // метод "оживляющий" животных
-        Set<Creature> creatureList = new HashSet<>(carnivores); // добавляем всех хищников и травоядных в один список
+    public void revive() {  // РјРµС‚РѕРґ "РѕР¶РёРІР»СЏСЋС‰РёР№" Р¶РёРІРѕС‚РЅС‹С…
+        Set<Creature> creatureList = new HashSet<>(carnivores); // РґРѕР±Р°РІР»СЏРµРј РІСЃРµС… С…РёС‰РЅРёРєРѕРІ Рё С‚СЂР°РІРѕСЏРґРЅС‹С… РІ РѕРґРёРЅ СЃРїРёСЃРѕРє
         creatureList.addAll(herbivores);
-        creatureList.stream().filter(creature -> creature instanceof Animal).forEach(creature -> creaturesService.execute((Animal) creature)); // запускаем всех животных в жизнь
+        creatureList.stream().filter(creature -> creature instanceof Animal).forEach(creature -> creaturesService.execute((Animal) creature)); // Р·Р°РїСѓСЃРєР°РµРј РІСЃРµС… Р¶РёРІРѕС‚РЅС‹С… РІ Р¶РёР·РЅСЊ
     }
 
-    private List<Creature> createCreaturesByType(CreatureType creatureType) { // метод для создания случайных существ по определенному типу
+    private List<Creature> createCreaturesByType(CreatureType creatureType) { // РјРµС‚РѕРґ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЃР»СѓС‡Р°Р№РЅС‹С… СЃСѓС‰РµСЃС‚РІ РїРѕ РѕРїСЂРµРґРµР»РµРЅРЅРѕРјСѓ С‚РёРїСѓ
         var creatures = new ArrayList<Creature>();
-        int countOfCreatures = switch (creatureType) { // переменная, которая содержит количество животных необходимое для создания (от и до)
+        int countOfCreatures = switch (creatureType) { // РїРµСЂРµРјРµРЅРЅР°СЏ, РєРѕС‚РѕСЂР°СЏ СЃРѕРґРµСЂР¶РёС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ Р¶РёРІРѕС‚РЅС‹С… РЅРµРѕР±С…РѕРґРёРјРѕРµ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ (РѕС‚ Рё РґРѕ)
             case WOLF, FOX, BOA -> ThreadLocalRandom.current().nextInt(5, 30);
             case EAGLE, HORSE, DEER -> ThreadLocalRandom.current().nextInt(5, 20);
             case GOAT, SHEEP -> ThreadLocalRandom.current().nextInt(30, 140);
@@ -106,9 +106,8 @@ public class Location {
             case CATERPILLAR -> ThreadLocalRandom.current().nextInt(500, 1000);
         };
         for (int i = 0; i < countOfCreatures; i++) {
-            creatures.add(CreatureCreator.create(creatureType)); // создаем животных и добавляем в список
+            creatures.add(CreatureCreator.create(creatureType)); // СЃРѕР·РґР°РµРј Р¶РёРІРѕС‚РЅС‹С… Рё РґРѕР±Р°РІР»СЏРµРј РІ СЃРїРёСЃРѕРє
         }
         return creatures;
     }
 }
-
